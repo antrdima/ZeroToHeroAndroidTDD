@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ZeroToHeroAndroidTDD</string>
+    <string name="i_am_an_android_developer">I am an Android Developer!</string>
+    <string name="change">change</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="hide">hide</string>
+    <string name="remove">remove</string>
+    <string name="increment">increment</string>
+    <string name="_0">0</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="load">load</string>
 </resources>
