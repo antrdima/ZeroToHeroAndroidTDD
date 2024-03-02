@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -7,6 +8,10 @@ interface LiveDataWrapper : ProvideLiveData {
     fun update(value: UiState)
 
     class Base : LiveDataWrapper {
+
+        init{
+            Log.d("TAG", "LiveDataWrapper base")
+        }
 
         private val liveData = MutableLiveData<UiState>()
 
