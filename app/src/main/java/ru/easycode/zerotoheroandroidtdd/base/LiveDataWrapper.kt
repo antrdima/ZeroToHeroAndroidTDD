@@ -2,15 +2,22 @@ package ru.easycode.zerotoheroandroidtdd.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.easycode.zerotoheroandroidtdd.UiState
+import ru.easycode.zerotoheroandroidtdd.ui.UiState
 
 interface LiveDataWrapper : LiveDataProvider {
 
-    fun save(bundleWrapper: BundleWrapper.Save)
-    fun update(value: UiState)
+    interface Update : LiveDataWrapper {
+        fun update(value: UiState)
+    }
+
+    interface Saver : LiveDataWrapper {
+        fun save(bundleWrapper: BundleWrapper.Save)
+    }
+
+    interface Mutable : Saver, Update
 
     class Base(private val liveData: MutableLiveData<UiState> = SingleLiveEvent()) :
-        LiveDataWrapper {
+        Mutable {
         override fun save(bundleWrapper: BundleWrapper.Save) {
             liveData.value?.let { bundleWrapper.save(it) }
         }

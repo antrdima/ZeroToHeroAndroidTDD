@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd
+package ru.easycode.zerotoheroandroidtdd.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 import ru.easycode.zerotoheroandroidtdd.base.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.base.LiveDataProvider
 import ru.easycode.zerotoheroandroidtdd.base.LiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.base.Repository
+import ru.easycode.zerotoheroandroidtdd.data.Repository
 
 class MainViewModel(
-    private val liveDataWrapper: LiveDataWrapper,
+    private val liveDataWrapper: LiveDataWrapper.Mutable,
     private val repository: Repository
 ) : ViewModel(), LiveDataProvider {
 
@@ -22,9 +22,8 @@ class MainViewModel(
     fun load() {
         liveDataWrapper.update(UiState.ShowProgress)
         viewModelScope.launch {
-            delay(1000)
             val result = repository.load()
-            liveDataWrapper.update(UiState.ShowData(result.text))
+            result.show(liveDataWrapper)
         }
     }
 

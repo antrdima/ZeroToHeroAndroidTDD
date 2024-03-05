@@ -1,7 +1,8 @@
-package ru.easycode.zerotoheroandroidtdd
+package ru.easycode.zerotoheroandroidtdd.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.easycode.zerotoheroandroidtdd.App
 import ru.easycode.zerotoheroandroidtdd.base.BundleWrapper
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 

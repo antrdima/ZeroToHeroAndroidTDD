@@ -1,7 +1,7 @@
 package ru.easycode.zerotoheroandroidtdd.base
 
 import android.os.Bundle
-import ru.easycode.zerotoheroandroidtdd.UiState
+import ru.easycode.zerotoheroandroidtdd.ui.UiState
 
 interface BundleWrapper {
 

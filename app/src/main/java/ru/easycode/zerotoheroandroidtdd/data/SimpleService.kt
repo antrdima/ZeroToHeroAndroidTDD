@@ -1,8 +1,7 @@
-package ru.easycode.zerotoheroandroidtdd.base
+package ru.easycode.zerotoheroandroidtdd.data
 
 import retrofit2.http.GET
 import retrofit2.http.Url
-import ru.easycode.zerotoheroandroidtdd.SimpleResponse
 
 interface SimpleService {
     @GET

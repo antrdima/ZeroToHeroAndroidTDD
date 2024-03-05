@@ -4,8 +4,9 @@ import android.app.Application
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.easycode.zerotoheroandroidtdd.base.LiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.base.Repository
-import ru.easycode.zerotoheroandroidtdd.base.SimpleService
+import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.data.SimpleService
+import ru.easycode.zerotoheroandroidtdd.ui.MainViewModel
 
 class App : Application() {
 
