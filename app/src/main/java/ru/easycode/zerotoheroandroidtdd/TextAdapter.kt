@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +10,12 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
     private val data = ArrayList<String>()
 
-    fun addItem(text:String) {
+    fun addItem(text: String) {
         data.add(text)
-        notifyItemInserted(data.size)
+        notifyItemInserted(data.size - 1)
     }
 
-    fun getItems() : ArrayList<String> {
+    fun getItems(): ArrayList<String> {
         return data
     }
 
@@ -29,6 +30,15 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])
+    }
+
+    fun saveInstanceState(outState: Bundle) {
+        outState.putStringArrayList("key", data)
+    }
+
+    fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        data.addAll(savedInstanceState.getStringArrayList("key") ?: arrayListOf())
+        notifyItemRangeInserted(0, data.size)
     }
 
     class ViewHolder(binding: ItemTextViewBinding) : RecyclerView.ViewHolder(binding.root) {

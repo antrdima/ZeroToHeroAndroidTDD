@@ -24,14 +24,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putStringArrayList("key", adapter.getItems())
+        adapter.saveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val data = savedInstanceState.getStringArrayList("key")
-        data?.forEach{
-            adapter.addItem(it)
-        }
+        adapter.onRestoreInstanceState(savedInstanceState)
     }
 }
