@@ -1,25 +1,32 @@
 package ru.easycode.zerotoheroandroidtdd
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.zerotoheroandroidtdd.databinding.ItemTextViewBinding
 
 class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
 
-    private val data = ArrayList<String>()
+    private val data = ArrayList<CharSequence>()
 
-    fun addItem(text: String) {
-        data.add(text)
-        notifyItemInserted(data.size - 1)
-    }
+    private var create = 0
+    private var bind = 0
 
-    fun getItems(): ArrayList<String> {
-        return data
+    fun update(it: List<CharSequence>) {
+        val diffUtilCallback = DiffUtilCallback(data, it)
+        val diff = DiffUtil.calculateDiff(diffUtilCallback)
+        data.clear()
+        data.addAll(it)
+        diff.dispatchUpdatesTo(this)
+//        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.d("TAG", "createViewHolder called $create")
+        create += 1
         val view = ItemTextViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
@@ -29,11 +36,14 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        Log.d("TAG", "Bindviewholder called $bind")
+        bind += 1
         holder.bind(data[position])
     }
 
     fun saveInstanceState(outState: Bundle) {
-        outState.putStringArrayList("key", data)
+        outState.putCharSequenceArrayList("key", data)
     }
 
     fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -44,8 +54,37 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.ViewHolder>() {
     class ViewHolder(binding: ItemTextViewBinding) : RecyclerView.ViewHolder(binding.root) {
         private val textView = binding.elementTextView
 
-        fun bind(text: String) {
+        fun bind(text: CharSequence) {
             textView.text = text
         }
+    }
+}
+
+private class DiffUtilCallback(
+    private val old: List<CharSequence>,
+    private val new: List<CharSequence>
+) :
+    DiffUtil.Callback() {
+    override fun getOldListSize(): Int {
+        return old.size
+    }
+
+    override fun getNewListSize(): Int {
+        return new.size
+    }
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return old[oldItemPosition] == new[newItemPosition]
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return old[oldItemPosition] == new[newItemPosition]
+    }
+
+    override fun getChangePayload(
+        oldItemPosition: Int,
+        newItemPosition: Int
+    ): Pair<CharSequence, CharSequence> {
+        return Pair(old[oldItemPosition], new[newItemPosition])
     }
 }

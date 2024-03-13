@@ -6,6 +6,7 @@ import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private val adapter = TextAdapter()
 
@@ -14,21 +15,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = (application as App).mainViewModel
         binding.recyclerView.adapter = adapter
 
         binding.actionButton.setOnClickListener {
-            adapter.addItem(binding.inputEditText.text.toString())
+            viewModel.add(binding.inputEditText.text.toString())
             binding.inputEditText.setText("")
+        }
+
+        viewModel.liveData().observe(this) {
+            adapter.update(it)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        adapter.saveInstanceState(outState)
+        viewModel.save(BundleWrapper.Base(outState))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        adapter.onRestoreInstanceState(savedInstanceState)
+        viewModel.restore(BundleWrapper.Base(savedInstanceState))
     }
 }
