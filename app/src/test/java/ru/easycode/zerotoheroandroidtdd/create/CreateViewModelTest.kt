@@ -5,11 +5,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModel
+import ru.easycode.zerotoheroandroidtdd.core.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.list.FakeListLiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.list.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.main.FakeNavigation
-import ru.easycode.zerotoheroandroidtdd.main.Navigation
-import ru.easycode.zerotoheroandroidtdd.main.Screen
+import ru.easycode.zerotoheroandroidtdd.core.Navigation
+import ru.easycode.zerotoheroandroidtdd.core.Screen
 
 class CreateViewModelTest {
 
