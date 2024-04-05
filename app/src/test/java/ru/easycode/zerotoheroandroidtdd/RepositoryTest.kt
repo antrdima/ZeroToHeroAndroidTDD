@@ -3,6 +3,10 @@ package ru.easycode.zerotoheroandroidtdd
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.core.Now
+import ru.easycode.zerotoheroandroidtdd.data.ItemCache
+import ru.easycode.zerotoheroandroidtdd.data.ItemsDao
+import ru.easycode.zerotoheroandroidtdd.data.Repository
 
 class RepositoryTest {
 
@@ -69,9 +73,7 @@ class RepositoryTest {
 }
 
 private interface FakeNow : Now {
-
     class Base(private var value: Long) : FakeNow {
-
         override fun nowMillis(): Long {
             return ++value
         }
