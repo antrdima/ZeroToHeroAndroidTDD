@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.core.viewmodel
+package ru.easycode.zerotoheroandroidtdd.core.livedata
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

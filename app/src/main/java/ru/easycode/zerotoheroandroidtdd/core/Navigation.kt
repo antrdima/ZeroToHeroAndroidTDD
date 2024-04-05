@@ -1,6 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.core
 
-import ru.easycode.zerotoheroandroidtdd.core.viewmodel.LiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.core.livedata.LiveDataWrapper
 
 interface Navigation {
 

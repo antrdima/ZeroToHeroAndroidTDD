@@ -2,7 +2,6 @@ package ru.easycode.zerotoheroandroidtdd
 
 import kotlinx.coroutines.Dispatchers
 import org.junit.Test
-import ru.easycode.zerotoheroandroidtdd.core.viewmodel.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.data.Repository
 import ru.easycode.zerotoheroandroidtdd.ui.main.MainViewModel
 

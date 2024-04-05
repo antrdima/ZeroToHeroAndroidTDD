@@ -1,6 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.core.viewmodel
-
-import ru.easycode.zerotoheroandroidtdd.core.BundleWrapper
+package ru.easycode.zerotoheroandroidtdd.core.livedata
 
 interface ListLiveDataWrapper {
 
@@ -11,7 +9,7 @@ interface ListLiveDataWrapper {
 //        fun save(bundleWrapper: BundleWrapper.Save)
     }
 
-    interface Add : ListLiveDataWrapper{
+    interface Add : ListLiveDataWrapper {
         fun add(value: String)
     }
 
