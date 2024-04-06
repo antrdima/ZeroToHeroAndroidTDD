@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.core.Now
+import ru.easycode.zerotoheroandroidtdd.data.Item
 import ru.easycode.zerotoheroandroidtdd.data.ItemCache
 import ru.easycode.zerotoheroandroidtdd.data.ItemsDao
 import ru.easycode.zerotoheroandroidtdd.data.Repository
@@ -102,8 +103,9 @@ private interface FakeDataSource : ItemsDao {
             return list
         }
 
-        override fun add(item: ItemCache) {
+        override fun add(item: ItemCache) : Long {
             list.add(item)
+            return 0L
         }
 
         override fun item(id: Long): ItemCache {

@@ -8,6 +8,7 @@ import ru.easycode.zerotoheroandroidtdd.core.livedata.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.data.ItemsDataBase
 import ru.easycode.zerotoheroandroidtdd.data.Repository
 import ru.easycode.zerotoheroandroidtdd.ui.add.AddViewModel
+import ru.easycode.zerotoheroandroidtdd.ui.delete.DeleteViewModel
 import ru.easycode.zerotoheroandroidtdd.ui.main.MainViewModel
 
 interface ViewModelFactory : ProvideViewModel, ClearViewModel {
@@ -38,7 +39,7 @@ interface ProvideViewModel {
     class Base(private val clearViewModel: ClearViewModel, applicationContext: Context) :
         ProvideViewModel {
 
-        private lateinit var repository: Repository.Mutable
+        private lateinit var repository: Repository.All
         private lateinit var sharedLiveData: ListLiveDataWrapper.All
 
         init {
@@ -60,13 +61,16 @@ interface ProvideViewModel {
                     repository,
                     sharedLiveData
                 )
-
                 AddViewModel::class.java -> AddViewModel(
                     repository,
                     sharedLiveData,
                     clearViewModel
                 )
-
+                DeleteViewModel::class.java -> DeleteViewModel(
+                    sharedLiveData,
+                    repository,
+                    clearViewModel
+                )
                 else -> throw IllegalStateException("viewModel")
             } as T
         }

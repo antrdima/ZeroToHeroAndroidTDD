@@ -45,11 +45,6 @@ class AddBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet_add) {
         }
     }
 
-//    override fun onDismiss(dialog: DialogInterface) {
-//        super.onDismiss(dialog)
-//        viewModel.comeback()
-//    }
-
     companion object {
         const val TAG = "ModalBottomSheet"
     }

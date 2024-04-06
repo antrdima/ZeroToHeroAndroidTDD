@@ -4,6 +4,10 @@ import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.FakeClearViewModel.Companion.CLEAR
+import ru.easycode.zerotoheroandroidtdd.core.livedata.ListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.data.ItemUi
+import ru.easycode.zerotoheroandroidtdd.data.Repository
+import ru.easycode.zerotoheroandroidtdd.ui.add.AddViewModel
 
 class AddViewModelTest {
 
@@ -99,7 +103,7 @@ private interface FakeAddRepository : Repository.Add {
             assertEquals(expected, actual)
         }
 
-        override fun add(value: String): Long {
+        override fun add(value: String) : Long{
             order.add(REPOSITORY_ADD)
             actual = value
             return count++
