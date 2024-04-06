@@ -2,6 +2,7 @@ package ru.easycode.zerotoheroandroidtdd
 
 import androidx.lifecycle.ViewModel
 import org.junit.Assert
+import ru.easycode.zerotoheroandroidtdd.core.viewmodel.ClearViewModel
 
 interface FakeClearViewModel : ClearViewModel {
 
@@ -19,9 +20,9 @@ interface FakeClearViewModel : ClearViewModel {
             Assert.assertEquals(expected, actual)
         }
 
-        override fun clearViewModel(clasz: Class<out ViewModel>) {
+        override fun clear(clazz: Class<out ViewModel>) {
             order.add(CLEAR)
-            actual = clasz
+            actual = clazz
         }
     }
 }
