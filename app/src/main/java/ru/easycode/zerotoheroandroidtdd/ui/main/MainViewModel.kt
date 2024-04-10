@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.livedata.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.data.ItemUi
 import ru.easycode.zerotoheroandroidtdd.data.Repository
@@ -23,7 +24,10 @@ class MainViewModel(
 
     fun init() {
         scope.launch(dispatcher) {
-            liveDataWrapper.update(repository.list().map { ItemUi(it.id, it.text) })
+            val data = repository.list().map { ItemUi(it.id, it.text) }
+            withContext(dispatcherMain) {
+                liveDataWrapper.update(data)
+            }
         }
     }
 }

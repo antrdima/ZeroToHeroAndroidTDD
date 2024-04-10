@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.ui.delete
+package ru.easycode.zerotoheroandroidtdd.ui.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,9 +14,9 @@ import ru.easycode.zerotoheroandroidtdd.core.viewmodel.ClearViewModel
 import ru.easycode.zerotoheroandroidtdd.data.ItemUi
 import ru.easycode.zerotoheroandroidtdd.data.Repository
 
-class DeleteViewModel(
-    val deleteLiveDataWrapper: ListLiveDataWrapper.All,
-    private val repository: Repository.Delete,
+class DetailsViewModel(
+    val changeLiveDataWrapper: ListLiveDataWrapper.All,
+    private val repository: Repository.Change,
     private val clear: ClearViewModel,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
@@ -29,7 +29,6 @@ class DeleteViewModel(
     fun init(itemId: Long) {
         scope.launch(dispatcher) {
             val item = repository.item(itemId)
-//            val text = "${item.id} -> ${item.text}"
             _liveData.postValue(item.text)
         }
     }
@@ -38,13 +37,23 @@ class DeleteViewModel(
         scope.launch(dispatcher) {
             repository.delete(itemId)
             withContext(dispatcherMain) {
-                deleteLiveDataWrapper.delete(ItemUi(itemId, liveData.value.toString()))
+                changeLiveDataWrapper.delete(ItemUi(itemId, liveData.value.toString()))
+                comeback()
+            }
+        }
+    }
+
+    fun update(itemId: Long, newText: String) {
+        scope.launch(dispatcher){
+            repository.update(itemId, newText)
+            withContext(dispatcherMain) {
+                changeLiveDataWrapper.update(ItemUi(itemId, newText))
                 comeback()
             }
         }
     }
 
     fun comeback() {
-        clear.clear(DeleteViewModel::class.java)
+        clear.clear(DetailsViewModel::class.java)
     }
 }

@@ -8,7 +8,7 @@ import ru.easycode.zerotoheroandroidtdd.core.livedata.ListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.data.ItemsDataBase
 import ru.easycode.zerotoheroandroidtdd.data.Repository
 import ru.easycode.zerotoheroandroidtdd.ui.add.AddViewModel
-import ru.easycode.zerotoheroandroidtdd.ui.delete.DeleteViewModel
+import ru.easycode.zerotoheroandroidtdd.ui.details.DetailsViewModel
 import ru.easycode.zerotoheroandroidtdd.ui.main.MainViewModel
 
 interface ViewModelFactory : ProvideViewModel, ClearViewModel {
@@ -66,7 +66,7 @@ interface ProvideViewModel {
                     sharedLiveData,
                     clearViewModel
                 )
-                DeleteViewModel::class.java -> DeleteViewModel(
+                DetailsViewModel::class.java -> DetailsViewModel(
                     sharedLiveData,
                     repository,
                     clearViewModel

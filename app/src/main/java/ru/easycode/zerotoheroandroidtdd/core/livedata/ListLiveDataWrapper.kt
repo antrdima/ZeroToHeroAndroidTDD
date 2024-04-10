@@ -5,7 +5,10 @@ import ru.easycode.zerotoheroandroidtdd.data.ItemUi
 interface ListLiveDataWrapper {
 
     interface Read : LiveDataWrapper.Read<List<ItemUi>>
-    interface Update : LiveDataWrapper.Update<List<ItemUi>>
+    interface Update : LiveDataWrapper.Update<List<ItemUi>> {
+        fun update(value: ItemUi)
+    }
+
     interface Mutable : Read, Update
 
     interface Add {
@@ -19,6 +22,14 @@ interface ListLiveDataWrapper {
     interface All : Mutable, Add, Delete
 
     class Base : LiveDataWrapper.Abstract<List<ItemUi>>(), All {
+        override fun update(value: ItemUi) {
+            val list = liveData.value?.toMutableList() ?: mutableListOf()
+            list.find { it.areItemsSame(value) }?.let {
+                list[list.indexOf(it)] = value
+            }
+            update(list)
+        }
+
         override fun add(value: ItemUi) {
             update((liveData().value ?: emptyList()) + value)
         }

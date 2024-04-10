@@ -3,6 +3,11 @@ package ru.easycode.zerotoheroandroidtdd
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.zerotoheroandroidtdd.core.Now
+import ru.easycode.zerotoheroandroidtdd.data.Item
+import ru.easycode.zerotoheroandroidtdd.data.ItemCache
+import ru.easycode.zerotoheroandroidtdd.data.ItemsDao
+import ru.easycode.zerotoheroandroidtdd.data.Repository
 
 class RepositoryTest {
 
@@ -123,7 +128,7 @@ private interface FakeDataSource : ItemsDao {
             return list
         }
 
-        override fun add(item: ItemCache) {
+        override fun add(item: ItemCache): Long {
             val found = list.find { it.id == item.id }
             val add = found == null
             if (add) {
@@ -131,6 +136,7 @@ private interface FakeDataSource : ItemsDao {
             } else {
                 list[list.indexOf(found)] = item
             }
+            return 1L
         }
 
         override fun item(id: Long): ItemCache {
@@ -139,6 +145,10 @@ private interface FakeDataSource : ItemsDao {
 
         override fun delete(id: Long) {
             list.remove(item(id))
+        }
+
+        override fun update(itemCache: ItemCache) {
+            list.replaceAll { if (it.id == itemCache.id) itemCache else it }
         }
     }
 }

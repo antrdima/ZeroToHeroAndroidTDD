@@ -13,14 +13,16 @@ interface Repository {
     }
 
     interface Delete {
-
         fun item(id: Long): Item
         fun delete(id: Long)
     }
 
-    interface Mutable : Read, Add
+    interface Change  : Delete{
+        fun update(id: Long, newText: String)
+    }
 
-    interface All : Mutable, Delete
+    interface Mutable : Read, Add
+    interface All : Mutable, Change
 
     class Base(private val dataSource: ItemsDao, private val now: Now) : All {
 
@@ -30,6 +32,10 @@ interface Repository {
 
         override fun add(value: String) : Long{
             return dataSource.add(ItemCache(now.nowMillis(), value))
+        }
+
+        override fun update(id: Long, newText: String) {
+            dataSource.update(ItemCache(id, newText))
         }
 
         override fun item(id: Long): Item {

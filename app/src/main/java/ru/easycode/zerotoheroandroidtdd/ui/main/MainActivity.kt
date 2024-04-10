@@ -6,7 +6,7 @@ import androidx.core.os.bundleOf
 import ru.easycode.zerotoheroandroidtdd.App
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
 import ru.easycode.zerotoheroandroidtdd.ui.add.AddBottomSheet
-import ru.easycode.zerotoheroandroidtdd.ui.delete.DeleteBottomSheet
+import ru.easycode.zerotoheroandroidtdd.ui.details.DetailsBottomSheet
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     private val itemOnClickListener = object : ClickListener {
         override fun onClick(id: Long) {
-            val deleteSheet = DeleteBottomSheet()
+            val deleteSheet = DetailsBottomSheet()
             val bundle = bundleOf().apply { putLong("KEY", id) }
             deleteSheet.arguments = bundle
-            deleteSheet.show(supportFragmentManager, DeleteBottomSheet.TAG)
+            deleteSheet.show(supportFragmentManager, DetailsBottomSheet.TAG)
         }
     }
 
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             val bottomSheet = AddBottomSheet()
             bottomSheet.show(supportFragmentManager, AddBottomSheet.TAG)
         }
-
         viewModel.init()
     }
 
