@@ -3,9 +3,9 @@ package ru.easycode.zerotoheroandroidtdd.note.core
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.easycode.zerotoheroandroidtdd.core.NoteCache
-import ru.easycode.zerotoheroandroidtdd.core.NotesDao
 import ru.easycode.zerotoheroandroidtdd.folder.core.FakeNow
+import ru.easycode.zerotoheroandroidtdd.note.core.data.MyNote
+import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteCache
 
 class NotesRepositoryTest {
 

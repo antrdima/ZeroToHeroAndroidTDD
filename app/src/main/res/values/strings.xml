@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ZeroToHeroAndroidTDD</string>
+    <string name="input_folder_name">Input folder name</string>
+    <string name="save">save</string>
+    <string name="input_note">Input note</string>
+    <string name="rename_folder">rename folder</string>
+    <string name="delete">delete</string>
+    <string name="rename_note">rename note</string>
+    <string name="edit_folder">edit folder</string>
+    <string name="folders">Folders</string>
 </resources>

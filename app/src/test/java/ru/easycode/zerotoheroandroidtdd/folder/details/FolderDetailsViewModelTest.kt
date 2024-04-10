@@ -9,11 +9,12 @@ import ru.easycode.zerotoheroandroidtdd.core.FakeClear.Companion.CLEAR
 import ru.easycode.zerotoheroandroidtdd.core.FakeNavigation
 import ru.easycode.zerotoheroandroidtdd.core.FakeNavigation.Companion.NAVIGATE
 import ru.easycode.zerotoheroandroidtdd.core.Order
+import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
 import ru.easycode.zerotoheroandroidtdd.folder.edit.EditFolderScreen
-import ru.easycode.zerotoheroandroidtdd.folder.list.FolderUi
 import ru.easycode.zerotoheroandroidtdd.folder.list.FoldersListScreen
-import ru.easycode.zerotoheroandroidtdd.note.core.MyNote
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
+import ru.easycode.zerotoheroandroidtdd.note.core.data.MyNote
+import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteUi
 import ru.easycode.zerotoheroandroidtdd.note.create.CreateNoteScreen
 import ru.easycode.zerotoheroandroidtdd.note.edit.EditNoteScreen
 
