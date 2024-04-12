@@ -3,7 +3,6 @@ package ru.easycode.zerotoheroandroidtdd.folder.details
 import org.junit.Assert.assertEquals
 import ru.easycode.zerotoheroandroidtdd.core.Order
 import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.folder.core.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
 
 interface FakeFolderLiveDataWrapper : FolderLiveDataWrapper.Mutable {

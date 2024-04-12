@@ -70,6 +70,10 @@ private interface FakeFoldersDao : FoldersDao {
             map.remove(folderId)
         }
 
+        override fun update(folderCache: FolderCache) {
+            map[folderCache.id] = folderCache
+        }
+
         override suspend fun folders(): List<FolderCache> {
             return map.map { it.value }.toList()
         }

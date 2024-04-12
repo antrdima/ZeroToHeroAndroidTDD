@@ -2,6 +2,7 @@ package ru.easycode.zerotoheroandroidtdd.folder.core
 
 import ru.easycode.zerotoheroandroidtdd.core.Now
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.Folder
+import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderCache
 import ru.easycode.zerotoheroandroidtdd.note.core.NotesDao
 
 interface FoldersRepository {
@@ -19,22 +20,24 @@ interface FoldersRepository {
     }
 
 
-    class Base(now: Now, foldersDao: FoldersDao, notesDao: NotesDao) : Create, Edit, ReadList{
+    class Base(private val now: Now, private val foldersDao: FoldersDao, private val notesDao: NotesDao) : Create, Edit, ReadList{
         override suspend fun createFolder(name: String): Long {
-            TODO("Not yet implemented")
+            val id = now.timeInMillis()
+            foldersDao.insert(FolderCache(id, name))
+            return id
         }
 
         override suspend fun delete(folderId: Long) {
-            TODO("Not yet implemented")
+            foldersDao.delete(folderId)
+            notesDao.deleteByFolderId(folderId)
         }
 
         override suspend fun rename(folderId: Long, newName: String) {
-            TODO("Not yet implemented")
+            foldersDao.update(FolderCache(folderId, newName))
         }
 
         override suspend fun folders(): List<Folder> {
-            TODO("Not yet implemented")
+            return foldersDao.folders().map{Folder(it.id, it.text, 0)}
         }
-
     }
 }

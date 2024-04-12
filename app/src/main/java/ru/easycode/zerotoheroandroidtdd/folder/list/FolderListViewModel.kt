@@ -2,28 +2,44 @@ package ru.easycode.zerotoheroandroidtdd.folder.list
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.Navigation
 import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
+import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderScreen
+import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
 
 class FolderListViewModel(
-    repository: FoldersRepository.ReadList,
-    listLiveDataWrapper: FolderListLiveDataWrapper.UpdateListAndRead,
-    folderLiveDataWrapper: FolderLiveDataWrapper.Update,
-    navigation: Navigation.Update,
-    dispatcher: CoroutineDispatcher,
-    dispatcherMain: CoroutineDispatcher
+    private val repository: FoldersRepository.ReadList,
+    private val listLiveDataWrapper: FolderListLiveDataWrapper.UpdateListAndRead,
+    private val folderLiveDataWrapper: FolderLiveDataWrapper.Update,
+    private val navigation: Navigation.Update,
+    private val dispatcher: CoroutineDispatcher,
+    private val dispatcherMain: CoroutineDispatcher
 ) : ViewModel() {
-    fun init() {
-        TODO("Not yet implemented")
-    }
 
-    fun folderDetails(folderUi: FolderUi) {
-        TODO("Not yet implemented")
+    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    fun init() {
+        scope.launch(dispatcher) {
+            val folders = repository.folders().map { FolderUi(it.id, it.title, it.notesCount) }
+            withContext(dispatcherMain) {
+                listLiveDataWrapper.update(folders)
+            }
+        }
     }
 
     fun addFolder() {
-        TODO("Not yet implemented")
+        navigation.update(CreateFolderScreen)
+    }
+
+    fun folderDetails(folderUi: FolderUi) {
+        folderLiveDataWrapper.update(folderUi)
+        navigation.update(FolderDetailsScreen)
     }
 }

@@ -15,7 +15,7 @@ class NotesRepositoryTest {
         val dao = FakeNotesDao.Base()
         val repository = NotesRepository.Base(
             now = now,
-            dao = dao
+            notesDao = dao
         )
 
         repository.createNote(folderId = 1L, text = "first note")
@@ -84,6 +84,13 @@ interface FakeNotesDao : NotesDao {
                 set.remove(it)
             }
             set.add(note)
+        }
+
+        override fun update(noteCache: NoteCache) {
+            set.find { it.id == noteCache.id }?.let{
+                set.remove(it)
+            }
+            set.add(noteCache)
         }
 
         override suspend fun delete(noteId: Long) {

@@ -63,7 +63,6 @@ class CreateNoteViewModelTest {
         navigation.checkScreen(FolderDetailsScreen)
         order.check(listOf(CLEAR, NAVIGATE))
     }
-
 }
 
 private const val NOTE_LIVEDATA_ADD = "NoteListLiveDataWrapper.Create#"
