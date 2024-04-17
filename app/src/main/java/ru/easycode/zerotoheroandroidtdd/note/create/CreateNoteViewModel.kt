@@ -9,13 +9,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.core.Navigation
-import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
-import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderViewModel
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
-import ru.easycode.zerotoheroandroidtdd.folder.details.NoteListLiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.folder.list.FoldersListScreen
-import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
+import ru.easycode.zerotoheroandroidtdd.note.core.livedata.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesRepository
 import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteUi
 
 class CreateNoteViewModel(
@@ -24,8 +21,8 @@ class CreateNoteViewModel(
     private val repository: NotesRepository.Create,
     private val navigation: Navigation.Update,
     private val clear: ClearViewModels,
-    private val dispatcher: CoroutineDispatcher,
-    private val dispatcherMain: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)

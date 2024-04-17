@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.folder.details
 
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -12,7 +13,8 @@ import ru.easycode.zerotoheroandroidtdd.core.Order
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
 import ru.easycode.zerotoheroandroidtdd.folder.edit.EditFolderScreen
 import ru.easycode.zerotoheroandroidtdd.folder.list.FoldersListScreen
-import ru.easycode.zerotoheroandroidtdd.note.core.NotesRepository
+import ru.easycode.zerotoheroandroidtdd.note.core.livedata.NoteListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesRepository
 import ru.easycode.zerotoheroandroidtdd.note.core.data.MyNote
 import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteUi
 import ru.easycode.zerotoheroandroidtdd.note.create.CreateNoteScreen
@@ -38,7 +40,7 @@ class FolderDetailsViewModelTest {
         navigation = FakeNavigation.Base(order)
         viewModel = FolderDetailsViewModel(
             noteListRepository = noteListRepository,
-            liveDataWrapper = noteListLiveDataWrapper,
+            noteListLiveDataWrapper = noteListLiveDataWrapper,
             folderLiveDataWrapper = folderLiveDataWrapper,
             navigation = navigation,
             clear = clear,
@@ -134,7 +136,7 @@ private interface FakeNoteListRepository : NotesRepository.ReadList {
     }
 }
 
-private interface FakeNoteListLiveDataWrapper : NoteListLiveDataWrapper.UpdateListAndRead {
+private interface FakeNoteListLiveDataWrapper : NoteListLiveDataWrapper.UpdateList {
 
     fun check(expected: List<NoteUi>)
 
@@ -146,6 +148,10 @@ private interface FakeNoteListLiveDataWrapper : NoteListLiveDataWrapper.UpdateLi
             actual.clear()
             actual.addAll(notes)
             order.add(UPDATE_NOTES_LIVEDATA)
+        }
+
+        override fun liveData(): LiveData<List<NoteUi>> {
+            TODO("Not yet implemented")
         }
 
         override fun check(expected: List<NoteUi>) {

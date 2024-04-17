@@ -1,15 +1,10 @@
-package ru.easycode.zerotoheroandroidtdd.note.core
+package ru.easycode.zerotoheroandroidtdd.note.core.db
 
 import ru.easycode.zerotoheroandroidtdd.core.Now
 import ru.easycode.zerotoheroandroidtdd.note.core.data.MyNote
 import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteCache
 
 interface NotesRepository {
-    suspend fun createNote(noteId: Long, text: String)
-    suspend fun noteList(noteId: Long): List<MyNote>
-    suspend fun deleteNote(noteId: Long)
-    suspend fun renameNote(noteId: Long, text: String)
-    suspend fun note(noteId: Long): MyNote
 
     interface Create {
         suspend fun createNote(folderId: Long, text: String): Long
@@ -25,9 +20,13 @@ interface NotesRepository {
         suspend fun noteList(folderId: Long): List<MyNote>
     }
 
-    class Base(private val now: Now, private val notesDao: NotesDao) : NotesRepository {
-        override suspend fun createNote(folderId: Long, text: String) {
-            notesDao.insert(NoteCache(now.timeInMillis(), text, folderId))
+    interface All : Create, Edit, ReadList
+    class Base(private val now: Now, private val notesDao: NotesDao) : All {
+
+        override suspend fun createNote(folderId: Long, text: String) : Long{
+            val id = now.timeInMillis()
+            notesDao.insert(NoteCache(id, text, folderId))
+            return id
         }
 
         override suspend fun noteList(folderId: Long): List<MyNote> {
@@ -40,7 +39,7 @@ interface NotesRepository {
 
         override suspend fun renameNote(noteId: Long, text: String) {
             val note = notesDao.note(noteId)
-            notesDao.update(NoteCache(noteId, text, note.folderId))
+            notesDao.insert(NoteCache(noteId, text, note.folderId))
         }
 
         override suspend fun note(noteId: Long): MyNote {

@@ -1,14 +1,15 @@
-package ru.easycode.zerotoheroandroidtdd.folder.core
+package ru.easycode.zerotoheroandroidtdd.folder.core.db
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderCache
 
 @Dao
 interface FoldersDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(folder: FolderCache)
 
     @Query("SELECT * FROM FolderCache")
@@ -16,7 +17,4 @@ interface FoldersDao {
 
     @Query("DELETE FROM FolderCache WHERE id = :folderId")
     suspend fun delete(folderId: Long)
-
-    @Update
-    fun update(folderCache : FolderCache)
 }

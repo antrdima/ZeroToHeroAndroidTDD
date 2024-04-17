@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.ClearViewModels
 import ru.easycode.zerotoheroandroidtdd.core.Navigation
-import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
-import ru.easycode.zerotoheroandroidtdd.folder.list.FolderListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.list.FoldersListScreen
 
 class CreateFolderViewModel(
@@ -19,10 +19,10 @@ class CreateFolderViewModel(
     private val liveDataWrapper: FolderListLiveDataWrapper.Create,
     private val navigation: Navigation.Update,
     private val clear: ClearViewModels,
-    private val dispatcher: CoroutineDispatcher,
-    private val dispatcherMain: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
-    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     fun createFolder(name: String) {
         scope.launch(dispatcher) {

@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd.folder.list
 
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -7,10 +8,11 @@ import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.core.FakeNavigation
 import ru.easycode.zerotoheroandroidtdd.core.FakeNavigation.Companion.NAVIGATE
 import ru.easycode.zerotoheroandroidtdd.core.Order
-import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderListLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.Folder
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
-import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderScreen
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
 import ru.easycode.zerotoheroandroidtdd.folder.list.FakeLiveDataWrapper.Companion.UPDATE
@@ -126,6 +128,10 @@ private interface FakeLiveDataWrapper : FolderListLiveDataWrapper.UpdateListAndR
             actual.clear()
             actual.addAll(list)
             order.add(UPDATE)
+        }
+
+        override fun liveData(): LiveData<List<FolderUi>> {
+            TODO("Not yet implemented")
         }
     }
 }

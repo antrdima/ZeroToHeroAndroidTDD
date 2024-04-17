@@ -11,9 +11,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.easycode.zerotoheroandroidtdd.db.AppDataBase
-import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersDao
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersDao
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderCache
-import ru.easycode.zerotoheroandroidtdd.note.core.NotesDao
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesDao
 import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteCache
 import java.io.IOException
 

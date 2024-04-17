@@ -6,6 +6,8 @@ import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.core.Now
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.Folder
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderCache
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersDao
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.note.core.FakeNotesDao
 
 class FoldersRepositoryTest {
@@ -68,10 +70,6 @@ private interface FakeFoldersDao : FoldersDao {
 
         override suspend fun delete(folderId: Long) {
             map.remove(folderId)
-        }
-
-        override fun update(folderCache: FolderCache) {
-            map[folderCache.id] = folderCache
         }
 
         override suspend fun folders(): List<FolderCache> {

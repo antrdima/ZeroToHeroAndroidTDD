@@ -1,9 +1,9 @@
-package ru.easycode.zerotoheroandroidtdd.folder.core
+package ru.easycode.zerotoheroandroidtdd.folder.core.db
 
 import ru.easycode.zerotoheroandroidtdd.core.Now
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.Folder
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderCache
-import ru.easycode.zerotoheroandroidtdd.note.core.NotesDao
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesDao
 
 interface FoldersRepository {
     interface Create {
@@ -20,7 +20,12 @@ interface FoldersRepository {
     }
 
 
-    class Base(private val now: Now, private val foldersDao: FoldersDao, private val notesDao: NotesDao) : Create, Edit, ReadList{
+    class Base(
+        private val now: Now,
+        private val foldersDao: FoldersDao,
+        private val notesDao: NotesDao
+    ) : Create,
+        Edit, ReadList {
         override suspend fun createFolder(name: String): Long {
             val id = now.timeInMillis()
             foldersDao.insert(FolderCache(id, name))
@@ -33,11 +38,12 @@ interface FoldersRepository {
         }
 
         override suspend fun rename(folderId: Long, newName: String) {
-            foldersDao.update(FolderCache(folderId, newName))
+            foldersDao.insert(FolderCache(folderId, newName))
         }
 
         override suspend fun folders(): List<Folder> {
-            return foldersDao.folders().map{Folder(it.id, it.text, 0)}
+            return foldersDao.folders()
+                .map { Folder(it.id, it.text, notesDao.notes(it.id).count()) }
         }
     }
 }

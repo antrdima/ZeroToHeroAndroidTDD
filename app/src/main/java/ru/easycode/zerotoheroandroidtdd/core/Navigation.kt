@@ -1,11 +1,16 @@
 package ru.easycode.zerotoheroandroidtdd.core
 
-interface Navigation {
-    interface Update {
-        fun update(screen: Screen)
-    }
+import ru.easycode.zerotoheroandroidtdd.core.livedata.LiveDataWrapper
 
-    interface Mutable : Update {
-        fun checkScreen(expected: Screen)
+interface Navigation {
+
+    interface Read : LiveDataWrapper.Read<Screen>
+    interface Update : LiveDataWrapper.Update<Screen>
+    interface Mutable : Read, Update
+
+    class Base : LiveDataWrapper.Abstract<Screen>(), Mutable {
+        override fun update(screen: Screen) {
+            liveData.value = screen
+        }
     }
 }

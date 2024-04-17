@@ -1,8 +1,9 @@
 package ru.easycode.zerotoheroandroidtdd.folder.details
 
+import androidx.lifecycle.LiveData
 import org.junit.Assert.assertEquals
 import ru.easycode.zerotoheroandroidtdd.core.Order
-import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderLiveDataWrapper
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
 
 interface FakeFolderLiveDataWrapper : FolderLiveDataWrapper.Mutable {
@@ -15,6 +16,10 @@ interface FakeFolderLiveDataWrapper : FolderLiveDataWrapper.Mutable {
 
         override fun check(expected: FolderUi) {
             assertEquals(expected, actual)
+        }
+
+        override fun liveData(): LiveData<FolderUi> {
+            TODO("Not yet implemented")
         }
 
         override fun update(folder: FolderUi) {

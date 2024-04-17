@@ -8,19 +8,20 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.easycode.zerotoheroandroidtdd.core.Navigation
-import ru.easycode.zerotoheroandroidtdd.folder.FolderLiveDataWrapper
-import ru.easycode.zerotoheroandroidtdd.folder.core.FoldersRepository
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.livedata.FolderListLiveDataWrapper
+import ru.easycode.zerotoheroandroidtdd.folder.core.db.FoldersRepository
 import ru.easycode.zerotoheroandroidtdd.folder.core.data.FolderUi
 import ru.easycode.zerotoheroandroidtdd.folder.create.CreateFolderScreen
 import ru.easycode.zerotoheroandroidtdd.folder.details.FolderDetailsScreen
 
 class FolderListViewModel(
     private val repository: FoldersRepository.ReadList,
-    private val listLiveDataWrapper: FolderListLiveDataWrapper.UpdateListAndRead,
-    private val folderLiveDataWrapper: FolderLiveDataWrapper.Update,
+    val listLiveDataWrapper: FolderListLiveDataWrapper.UpdateListAndRead,
+    val folderLiveDataWrapper: FolderLiveDataWrapper.Update,
     private val navigation: Navigation.Update,
-    private val dispatcher: CoroutineDispatcher,
-    private val dispatcherMain: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)

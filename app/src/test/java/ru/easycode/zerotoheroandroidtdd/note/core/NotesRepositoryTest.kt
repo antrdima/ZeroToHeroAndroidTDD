@@ -6,6 +6,8 @@ import org.junit.Test
 import ru.easycode.zerotoheroandroidtdd.folder.core.FakeNow
 import ru.easycode.zerotoheroandroidtdd.note.core.data.MyNote
 import ru.easycode.zerotoheroandroidtdd.note.core.data.NoteCache
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesDao
+import ru.easycode.zerotoheroandroidtdd.note.core.db.NotesRepository
 
 class NotesRepositoryTest {
 
@@ -84,13 +86,6 @@ interface FakeNotesDao : NotesDao {
                 set.remove(it)
             }
             set.add(note)
-        }
-
-        override fun update(noteCache: NoteCache) {
-            set.find { it.id == noteCache.id }?.let{
-                set.remove(it)
-            }
-            set.add(noteCache)
         }
 
         override suspend fun delete(noteId: Long) {

@@ -16,6 +16,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
+
+        testOptions {
+            execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        }
     }
 
     buildTypes {
